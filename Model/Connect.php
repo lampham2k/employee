@@ -2,35 +2,39 @@
 
 class Connect {
 
-    private $host = 'db-service:3306';
+    private static $dbInstance = null;
 
-    private $user = 'root';
+    public function sql($sql)
+    {
 
-    private $password = 'root';
+        $connect = Connect::getInstance();
 
-    private $database = 'bao_tri';
-
-    private function cnt(){
-
-        $connect = mysqli_connect($this->host,$this->user,$this->password,$this->database);
-
-        return $connect;
-    }
-
-    public function resultSql($sql){
-
-        $connect = (new Connect())->cnt();
-
-        $result = mysqli_query($connect,$sql);
-
-        return $result;
-    }
-
-    public function sql($sql){
-
-        $connect = (new Connect())->cnt();
-
-        mysqli_query($connect,$sql);
+        return mysqli_query($connect,$sql);
 
     }
+
+    public static function getInstance() {
+
+		if ( self::$dbInstance == null  ) {
+			
+			try {
+
+                $host = 'db-service:3306';
+
+                $user = 'root';
+            
+                $password = 'root';
+            
+                $database = 'bao_tri';
+
+                self::$dbInstance = mysqli_connect($host, $user, $password, $database);
+                
+			} catch (Exception $e) {
+
+				echo $e->getMessage();
+                		
+			}
+		}
+		return self::$dbInstance;
+	}
 }

@@ -9,19 +9,19 @@
 
     <h2>Update Employee</h2>
 
-    <?php if ($each) { ?>
+    <?php if ($employeeObject) { ?>
 
         <form action="?action=update" method="post">
 
-            <input type="hidden" name="id" value="<?php echo $each->getId() ?>">
+            <input type="hidden" name="id" value="<?php echo $employeeObject->getId() ?>">
 
-            Full Name: <input type="text" name="fullname" value="<?php echo $each->getFullName() ?>" required><br>
+            Full Name: <input type="text" name="fullname" value="<?php echo $employeeObject->getFullName() ?>" required><br>
 
-            Email: <input type="email" name="email" value="<?php echo $each->getEmail() ?>" required><br>
+            Email: <input type="email" name="email" value="<?php echo $employeeObject->getEmail() ?>" required><br>
 
-            Phone: <input type="phone" name="phone" value="<?php echo $each->getPhone() ?>" required><br>
+            Phone: <input type="phone" name="phone" value="<?php echo $employeeObject->getPhone() ?>" required><br>
             
-            Introduce: <textarea name="introduce" required rows="4" cols="5"><?php echo $each->getIntroduce() ?></textarea><br>
+            Introduce: <textarea name="introduce" required rows="4" cols="5"><?php echo $employeeObject->getIntroduce() ?></textarea><br>
 
             <input type="submit" value="Update Employee">
         </form>

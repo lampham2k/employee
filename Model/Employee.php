@@ -9,55 +9,95 @@ class Employee {
 
     public function all(){
 
-        $sql = "select * from $this->table order by id desc limit 3";
+        try {
+            
+            $sql = "select * from $this->table order by id desc";
+    
+            $result = (new Connect())->sql($sql);
 
-        $result = (new Connect())->resultSql($sql);
+            $arr = [];
 
-        $arr = [];
+            if(!$result) return $arr;
+    
+            foreach($result as $row){
+    
+                $arr[] = new EmployeeObject($row);
+    
+            }
 
-        foreach($result as $row){
+            return $arr;
 
-            $Object = new EmployeeObject($row);
+        } catch (\Throwable $th) {
 
-            $arr[] = $Object;
+            return [];
         }
 
-        return $arr;
     }
 
-    public function create($params){
+    public function create($params)
+    {
+        try {
+            
+            $employeeObject = new EmployeeObject($params);
+    
+            $sql = "insert into $this->table(fullname, email, phone, introduce)
+            values('{$employeeObject->getFullName()}', '{$employeeObject->getEmail()}', '{$employeeObject->getPhone()}', '{$employeeObject->getIntroduce()}') ";
+            
+            return (new Connect())->sql($sql);
 
-        $object = new EmployeeObject($params);
-
-        $sql = "insert into $this->table(fullname, email, phone, introduce)
-        values('{$object->getFullName()}', '{$object->getEmail()}', '{$object->getPhone()}', '{$object->getIntroduce()}') ";
-        
-        (new Connect())->sql($sql);
+        } catch (\Throwable $th) {
+            
+            return false;
+            
+        }
     }
 
     public function edit($id) :object{
 
-        $sql = "select * from $this->table where id = '$id' "; 
+        try {
+            
+            $sql = "select * from $this->table where id = '$id' "; 
+    
+            $result = (new Connect())->sql($sql);
+    
+            $employeeObject = mysqli_fetch_array($result);
+            
+            if(!$employeeObject) return (object)[];;
+    
+            return new EmployeeObject($employeeObject);
 
-        $result = (new Connect())->resultSql($sql);
+        } catch (\Throwable $th) {
+            
+            return (object)[];
+            
+        }
 
-        $each = mysqli_fetch_array($result);
-
-        return new EmployeeObject($each);
     }
 
     public function update($params){
+
+        try {
+            
+            $employeeObject = new EmployeeObject($params);
+            
+            $sql = " update $this->table set
+            fullname = '{$employeeObject->getFullName()}', 
+            email = '{$employeeObject->getEmail()}', 
+            phone = '{$employeeObject->getPhone()}', 
+            introduce = '{$employeeObject->getIntroduce()}' 
+            where 
+            id = {$employeeObject->getId()} ";
+            
+            if(!(new Connect())->sql($sql)) return false;
+
+            return true;
+
+
+        } catch (\Throwable $th) {
+
+            return false;
+            
+        }
         
-        $object = new EmployeeObject($params);
-        
-        $sql = " update $this->table set
-        fullname = '{$object->getFullName()}', 
-        email = '{$object->getEmail()}', 
-        phone = '{$object->getPhone()}', 
-        introduce = '{$object->getIntroduce()}' 
-        where 
-        id = {$object->getId()} ";
-        
-        (new Connect())->sql($sql);
     }
 }

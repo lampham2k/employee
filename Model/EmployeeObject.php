@@ -33,9 +33,9 @@ Class EmployeeObject{
 
     }
 
-    public function setId($var){
+    public function setId($id){
 
-        $this->id = $var;
+        $this->id = $id;
         
     }
 
@@ -45,9 +45,9 @@ Class EmployeeObject{
 
     }
 
-    public function setFullName($var){
+    public function setFullName($fullName){
 
-        $this->fullName = $var;
+        $this->fullName = $fullName;
 
     }
 
@@ -57,9 +57,9 @@ Class EmployeeObject{
         return $this->email;
     }
 
-    public function setEmail($var){
+    public function setEmail($email){
 
-        $this->email = $var;
+        $this->email = $email;
         
     }
 
@@ -68,9 +68,9 @@ Class EmployeeObject{
         return $this->phone;
     }
 
-    public function setPhone($var){
+    public function setPhone($phone){
 
-        $this->phone = $var;
+        $this->phone = $phone;
         
     }
 
@@ -79,9 +79,9 @@ Class EmployeeObject{
         return $this->introduce;
     }
 
-    public function setIntroduce($var){
+    public function setIntroduce($introduce){
 
-        $this->introduce = $var;
+        $this->introduce = $introduce;
         
     }
 }

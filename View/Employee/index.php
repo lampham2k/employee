@@ -6,13 +6,16 @@
     <title>List of Employees</title>
 </head>
 <body>
+
+    <p><a href="?action=create">Add New Employee</a></p>
+    
     <h2>List of Employees</h2>
 
-    <?php if ($arr) {
+    <?php if ($employee) {
 
             echo "<ul>";
 
-            foreach ($arr as $each) {
+            foreach ($employee as $each) {
 
                 $id = $each->getId();
 
@@ -34,6 +37,5 @@
 
     }
     ?>
-    <p><a href="?action=create">Add New Employee</a></p>
 </body>
 </html>
